@@ -28,7 +28,7 @@ public class ClientHandler {
         System.out.println("================================================================");
 
         HttpRequestParser httpRequestParser = new HttpRequestParser();
-        httpRequestParser.parse(receivedRequestData);
+        boolean isParsed = httpRequestParser.parse(receivedRequestData);
 
         /*StringTokenizer parser = new StringTokenizer(receivedRequestData);
 
@@ -39,6 +39,11 @@ public class ClientHandler {
         System.out.println("Resource File Requested is : " + httpRequestParser.requestResourceURI);
 
         HttpResponse httpResponse = getHttpResponse(httpRequestParser);
+
+        if(isParsed == false){
+            httpResponse.statusCode = "400";
+            httpResponse.reasonPhrase = "Bad Request";
+        }
 
         outputStream.write((httpResponse.httpVersion + " " + httpResponse.statusCode + " " + httpResponse.reasonPhrase).getBytes());
         outputStream.write(("\nServer: Java HTTP Server : 1.0").getBytes());
