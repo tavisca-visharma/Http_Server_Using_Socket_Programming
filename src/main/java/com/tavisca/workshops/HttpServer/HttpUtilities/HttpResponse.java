@@ -4,11 +4,11 @@ import java.util.HashMap;
 
 public class HttpResponse {
 
-    public String statusCode = "";
-    public String reasonPhrase = "";
+    public String statusCode = "200";
+    public String reasonPhrase = "OK";
     public String httpVersion = "";
-    public byte[] responseBody;
-    public int responseBodyLength;
+    public byte[] responseBody = null;
+    public int responseBodyLength = 0;
 
     public HashMap<String,String > httpResponseHeaderMap = new HashMap<String, String>();
 
