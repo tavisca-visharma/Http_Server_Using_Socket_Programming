@@ -40,7 +40,7 @@ public class ClientHandler {
 
         HttpResponse httpResponse = getHttpResponse(httpRequestParser);
 
-        if(isParsed == false){
+        if (isParsed == false) {
             httpResponse.statusCode = "400";
             httpResponse.reasonPhrase = "Bad Request";
         }
@@ -69,46 +69,40 @@ public class ClientHandler {
 
         if (httpRequestParser.requestType.toUpperCase().equals("GET")) {
             if (httpRequestParser.requestResourceURI.equals("")) {
-                file = new File(DIRECTORY_PATH + "index.html");
-                try {
-                    fileInputStream = new FileInputStream(file);
-                } catch (FileNotFoundException e) {
-                    file = new File(DIRECTORY_PATH + "Error404.html");
-                    httpResponse.statusCode = "404";
-                    httpResponse.reasonPhrase = "Not Found";
-                }
-            } else {
-                try {
-                    file = new File(DIRECTORY_PATH + httpRequestParser.requestResourceURI);
-                    fileInputStream = new FileInputStream(file);
-                } catch (FileNotFoundException e) {
-                    file = new File(DIRECTORY_PATH + "Error404.html");
-                    httpResponse.statusCode = "404";
-                    httpResponse.reasonPhrase = "Not Found";
-                }
+                httpRequestParser.requestResourceURI = "index.html";
             }
             try {
+                file = new File(DIRECTORY_PATH + httpRequestParser.requestResourceURI);
                 fileInputStream = new FileInputStream(file);
-                int fileLength = (int) file.length();
-                byte[] fileDataBuffer = new byte[fileLength];
-                fileInputStream.read(fileDataBuffer);
-                httpResponse.responseBody = fileDataBuffer;
-                httpResponse.responseBodyLength = fileLength;
-
-                if (httpRequestParser.requestResourceURI.contains("[.]") == true) {
-                    String extension = httpRequestParser.requestResourceURI.split("[.]")[1];
-                    httpResponse.httpResponseHeaderMap.put("Content-Type", HttpResponse.getMimeType(extension));
-                }
-
-
-                httpResponse.httpResponseHeaderMap.put("Content-Length", String.valueOf(httpResponse.responseBody.length));
-
-
-            } catch (IOException e) {
-                httpResponse.statusCode="400";
-                httpResponse.reasonPhrase="Bad Request";
+            } catch (FileNotFoundException e) {
+                file = new File(DIRECTORY_PATH + "Error404.html");
+                httpResponse.statusCode = "404";
+                httpResponse.reasonPhrase = "Not Found";
             }
         }
+        try {
+            fileInputStream = new FileInputStream(file);
+            int fileLength = (int) file.length();
+            byte[] fileDataBuffer = new byte[fileLength];
+            fileInputStream.read(fileDataBuffer);
+            httpResponse.responseBody = fileDataBuffer;
+            httpResponse.responseBodyLength = fileLength;
+
+            if (httpRequestParser.requestResourceURI.contains(".") == true) {
+                String extension = httpRequestParser.requestResourceURI.split("[.]")[1];
+                System.out.println(HttpResponse.getMimeType(extension) + " =======------------");
+                httpResponse.httpResponseHeaderMap.put("Content-Type", HttpResponse.getMimeType(extension));
+            }
+
+
+            httpResponse.httpResponseHeaderMap.put("Content-Length", String.valueOf(httpResponse.responseBody.length));
+
+
+        } catch (IOException e) {
+            httpResponse.statusCode = "400";
+            httpResponse.reasonPhrase = "Bad Request";
+        }
+
         return httpResponse;
     }
 }
