@@ -12,7 +12,7 @@ public class ClientHandler {
     BufferedInputStream inputStream;
     BufferedOutputStream outputStream;
     final int BUFFER_SIZE = 256;
-    private static final String DIRECTORY_PATH = "C:\\Users\\vlsharma\\Desktop\\";
+    private static final String DIRECTORY_PATH = "src//main//resources//";          /*"C:\\Users\\vlsharma\\Desktop\\";*/
     File file = null;
     FileInputStream fileInputStream = null;
 
