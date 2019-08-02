@@ -1,7 +1,9 @@
 package com.tavisca.workshops.HttpServer.ServerControllerAndClientHandler;
 
+import com.tavisca.workshops.HttpServer.FileUtilities.FileReader;
 import com.tavisca.workshops.HttpServer.HttpUtilities.HttpRequestParser;
 import com.tavisca.workshops.HttpServer.HttpUtilities.HttpResponse;
+import com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -10,17 +12,16 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Date;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ClientHandler {
 
     final int BUFFER_SIZE = 256;
-    private static final String DIRECTORY_PATH = "src//main//resources//";          /*"C:\\Users\\vlsharma\\Desktop\\";*/
+    private static final String DIRECTORY_PATH = "src//main//resources//HttpServerResources//";          /*"C:\\Users\\vlsharma\\Desktop\\";*/
     File file = null;
-    Logger LOGGER;
+    LogsWriter logsWriter;
 
     ClientHandler() {
-        LOGGER = Logger.getLogger(ClientHandler.class.getName());
+        logsWriter = new LogsWriter(ClientHandler.class.getName());
     }
 
 
@@ -40,7 +41,7 @@ public class ClientHandler {
             cleanUpStreamsAndClientSocket(clientSocket, inputStream, outputStream);
 
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Exception Occurred", e);
+            logsWriter.writeLog(Level.SEVERE, "Exception Occurred", e);
         }
     }
 
@@ -58,8 +59,8 @@ public class ClientHandler {
 
         String requestType = parser.nextToken().trim();
         String resourceFileRequested = parser.nextToken().substring(1).trim();*/
-        LOGGER.info("Request Type is : " + httpRequestParser.requestType);
-        LOGGER.info("Resource File Requested is : " + httpRequestParser.requestResourceURI);
+        logsWriter.writeLog("Request Type is : " + httpRequestParser.requestType);
+        logsWriter.writeLog("Resource File Requested is : " + httpRequestParser.requestResourceURI);
 
         HttpResponse httpResponse = null;
         if (isParsed == true) {
@@ -74,9 +75,9 @@ public class ClientHandler {
 
     private String logRequestHeadersAndBodyReceived(byte[] dataBuffer) {
         String receivedRequestData = new String(dataBuffer);
-        LOGGER.info("================================================================");
-        LOGGER.info(receivedRequestData);
-        LOGGER.info("================================================================");
+        logsWriter.writeLog("================================================================");
+        logsWriter.writeLog(receivedRequestData);
+        logsWriter.writeLog("================================================================");
         return receivedRequestData;
     }
 
@@ -127,7 +128,7 @@ public class ClientHandler {
         try {
             httpResponse.responseBody = fileReader.readFromFile(file);
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Exception Occurred While Reading File ...", e);
+            logsWriter.writeLog(Level.SEVERE, "Exception Occurred While Reading File ...", e);
         }
 
         httpResponse.responseBodyLength = fileReader.getFileLengthOfReadFile();

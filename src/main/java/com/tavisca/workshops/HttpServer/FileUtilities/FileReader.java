@@ -1,4 +1,4 @@
-package com.tavisca.workshops.HttpServer.ServerControllerAndClientHandler;
+package com.tavisca.workshops.HttpServer.FileUtilities;
 
 import com.tavisca.workshops.HttpServer.HttpUtilities.HttpResponse;
 

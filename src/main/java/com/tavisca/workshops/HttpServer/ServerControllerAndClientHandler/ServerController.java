@@ -1,22 +1,24 @@
 package com.tavisca.workshops.HttpServer.ServerControllerAndClientHandler;
 
+import com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class ServerController {
-    static Logger LOGGER = Logger.getLogger(ServerController.class.getName());
+    static LogsWriter logsWriter;
     static int port = 80;
 
     public static void main(String[] args) throws IOException {
+        logsWriter = new LogsWriter(ServerController.class.getName());
         ServerSocket serverSocket = new ServerSocket(port);
-        LOGGER.info("Server Started");
+        logsWriter.writeLog("Server Started to listen at port 80");
         while (true) {
             Socket clientSocket = serverSocket.accept();
-            LOGGER.info("\n\t\tNew Client Connected ... ");
-            LOGGER.info("\t\t=========================");
+            logsWriter.writeLog("\n\t\tNew Client Connected ... ");
+            logsWriter.writeLog("\t\t=========================");
             ClientHandler clientHandler = new ClientHandler();
 
             /*Creating a New Thread*/

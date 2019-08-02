@@ -1,11 +1,13 @@
 package com.tavisca.workshops.HttpServer.HttpUtilities;
 
+import com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter;
+
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HttpRequestParser {
-    Logger LOGGER = Logger.getLogger(HttpRequestParser.class.getName());
+    LogsWriter logsWriter;
     public String requestType = "";
     public String requestResourceURI = "";
     public String httpVersion = "";
@@ -23,7 +25,7 @@ public class HttpRequestParser {
             parseAndStoreRequestHeaders(requestContentHeaders);
             //TODO: Request Body is to be implemented in case of Parsing Post,Put and other kind of requests.
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Exception Occurred During Parsing Http Request", e);
+            logsWriter.writeLog(Level.SEVERE, "Exception Occurred During Parsing Http Request", e);
             return false;
         }
         return true;

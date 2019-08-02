@@ -1,0 +1,45 @@
+Aug 02, 2019 11:14:05 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: ================================================================
+Aug 02, 2019 11:14:05 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: GET / HTTP/1.1
+Host: localhost
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36
+Accept: text/html,application/xhtml+xml,
+Aug 02, 2019 11:14:05 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: ================================================================
+Aug 02, 2019 11:14:05 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: Request Type is : GET
+Aug 02, 2019 11:14:05 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: Resource File Requested is : 
+Aug 02, 2019 11:14:05 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: ================================================================
+Aug 02, 2019 11:14:05 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: GET /rose-blue-flower-rose-blooms-67636.jpeg HTTP/1.1
+Host: localhost
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36
+Accept: image/webp,image/apng,i
+Aug 02, 2019 11:14:05 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: ================================================================
+Aug 02, 2019 11:14:05 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: Request Type is : GET
+Aug 02, 2019 11:14:05 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: Resource File Requested is : rose-blue-flower-rose-blooms-67636.jpeg
+Aug 02, 2019 11:14:06 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: ================================================================
+Aug 02, 2019 11:14:06 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: GET /mov_bbb.mp4 HTTP/1.1
+Host: localhost
+Connection: keep-alive
+Accept-Encoding: identity;q=1, *;q=0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36
+Accept: */*
+Referer:
+Aug 02, 2019 11:14:06 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: ================================================================
+Aug 02, 2019 11:14:06 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: Request Type is : GET
+Aug 02, 2019 11:14:06 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: Resource File Requested is : mov_bbb.mp4
