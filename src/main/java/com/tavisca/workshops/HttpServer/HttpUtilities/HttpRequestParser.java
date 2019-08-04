@@ -4,10 +4,9 @@ import com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter;
 
 import java.util.HashMap;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class HttpRequestParser {
-    LogsWriter logsWriter;
+    LogsWriter logsWriter = new LogsWriter(HttpRequestParser.class.getName());
     public String requestType = "";
     public String requestResourceURI = "";
     public String httpVersion = "";

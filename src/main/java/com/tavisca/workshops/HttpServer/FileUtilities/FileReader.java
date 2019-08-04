@@ -1,7 +1,5 @@
 package com.tavisca.workshops.HttpServer.FileUtilities;
 
-import com.tavisca.workshops.HttpServer.HttpUtilities.HttpResponse;
-
 import java.io.*;
 
 public class FileReader {
