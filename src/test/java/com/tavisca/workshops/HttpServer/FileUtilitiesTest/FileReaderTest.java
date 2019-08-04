@@ -1,10 +1,9 @@
-package FileUtilitiesTest;
+package com.tavisca.workshops.HttpServer.FileUtilitiesTest;
 
 import com.tavisca.workshops.HttpServer.FileUtilities.FileReader;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 public class FileReaderTest {

@@ -1,4 +1,4 @@
-package HttpUtilitiesTest;
+package com.tavisca.workshops.HttpServer.HttpUtilitiesTest;
 
 import com.tavisca.workshops.HttpServer.HttpUtilities.HttpRequestParser;
 import com.tavisca.workshops.HttpServer.HttpUtilities.HttpResponse;
