@@ -2,16 +2,18 @@ package com.tavisca.workshops.HttpServer.HttpUtilities;
 
 import com.tavisca.workshops.HttpServer.FileUtilities.FileReader;
 import com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter;
+import com.tavisca.workshops.HttpServer.model.ResponseHeader;
+
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 
 public class HttpRequestHandler {
     static LogsWriter logsWriter;
     final int BUFFER_SIZE = 256;
-    private static final String DIRECTORY_PATH = "src//main//resources//HttpServerResources//";          /*"C:\\Users\\vlsharma\\Desktop\\";*/
-    File file = null;
+    private static final String DIRECTORY_PATH = "src//main//resources//HttpServerResources//";
 
     static {
         logsWriter = new LogsWriter(HttpRequestHandler.class.getName());
@@ -23,7 +25,7 @@ public class HttpRequestHandler {
         String receivedRequestData = logRequestHeadersAndBodyReceived(dataBuffer);
 
         HttpResponse httpResponse = parseHttpRequestAndReceiveResponse(receivedRequestData);
-        return  httpResponse;
+        return httpResponse;
     }
 
     private byte[] getReceivedRequestDataInBytes(BufferedInputStream inputStream) throws IOException {
@@ -48,8 +50,7 @@ public class HttpRequestHandler {
             httpResponse = getHttpResponse(httpRequestParser);
         } else {
             httpResponse = new HttpResponse();
-            httpResponse.statusCode = "400";
-            httpResponse.reasonPhrase = "Bad Request";
+            httpResponse.header = new ResponseHeader(httpResponse.body.length).badRequestError().getBytes();
         }
         return httpResponse;
     }
@@ -64,7 +65,6 @@ public class HttpRequestHandler {
 
     private HttpResponse getHttpResponse(HttpRequestParser httpRequestParser) {
         HttpResponse httpResponse = new HttpResponse();
-        httpResponse.httpVersion = httpRequestParser.httpVersion;
 
         //TODO : Handle different requests
         /*if (!httpRequestParser.requestType.toUpperCase().equals("GET")) {
@@ -81,31 +81,39 @@ public class HttpRequestHandler {
     private void handleGetTypeResourceRequests(HttpRequestParser httpRequestParser, HttpResponse httpResponse, FileReader fileReader) {
         if (httpRequestParser.requestResourceURI.equals("")) {
             httpRequestParser.requestResourceURI = "index.html";
-        }
-        file = new File(DIRECTORY_PATH + httpRequestParser.requestResourceURI);
-        if(!file.exists()) {
-            httpRequestParser.requestResourceURI = "Error404.html";
-            file = new File(DIRECTORY_PATH + httpRequestParser.requestResourceURI);
-            httpResponse.statusCode = "404";
-            httpResponse.reasonPhrase = "NOT_FOUND";
+            handleGetTypeResourceRequests(httpRequestParser, httpResponse, fileReader);
         }
         try {
-            httpResponse.responseBody = fileReader.readFromFile(file);
+            try {
+                httpResponse.body = fileReader.readFromFile(new File(DIRECTORY_PATH + httpRequestParser.requestResourceURI));
+                String extension = getExtension(httpRequestParser);
+                httpResponse.header = new ResponseHeader(httpResponse.body.length).
+                        setContentTypeForExtention(extension)
+                        .getBytes();
+            } catch (FileNotFoundException e) {
+                httpRequestParser.requestResourceURI = "Error404.html";
+                httpResponse.body = fileReader.readFromFile(new File(DIRECTORY_PATH + httpRequestParser.requestResourceURI));
+                String extension = getExtension(httpRequestParser);
+                httpResponse.header = new ResponseHeader(httpResponse.body.length)
+                        .fileNotFoundError()
+                        .setContentTypeForExtention(extension)
+                        .getBytes();
+                logsWriter.writeLog(Level.SEVERE, "File not found ...", e);
+            }
         } catch (IOException e) {
-            logsWriter.writeLog(Level.SEVERE, "Exception Occurred While Reading File ...", e);
+            logsWriter.writeLog(Level.SEVERE, "Difficulty Reading File ...", e);
         }
 
-        httpResponse.responseBodyLength = fileReader.getFileLengthOfReadFile();
 
-        setContentTypeAndContentLengthOfResponse(httpRequestParser, httpResponse);
     }
 
-    private void setContentTypeAndContentLengthOfResponse(HttpRequestParser httpRequestParser, HttpResponse httpResponse) {
+    private String getExtension(HttpRequestParser httpRequestParser) {
+        String extension = "text/html";
         if (httpRequestParser.requestResourceURI.contains(".")) {
-            String extension = httpRequestParser.requestResourceURI.split("[.]")[1];
-            httpResponse.httpResponseHeaderMap.put("Content-Type", HttpResponse.getMimeType(extension));
+            extension = httpRequestParser.requestResourceURI.split("[.]")[1];
         }
-        httpResponse.httpResponseHeaderMap.put("Content-Length", String.valueOf(httpResponse.responseBody.length));
+        return extension;
     }
-
 }
+
+

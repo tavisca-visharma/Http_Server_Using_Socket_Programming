@@ -8,7 +8,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Date;
 import java.util.logging.Level;
 
 public class ClientHandler {
@@ -25,7 +24,7 @@ public class ClientHandler {
             BufferedOutputStream outputStream = new BufferedOutputStream(clientSocket.getOutputStream());
 
             HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
-           HttpResponse httpResponse = httpRequestHandler.handleRequest(inputStream);
+            HttpResponse httpResponse = httpRequestHandler.handleRequest(inputStream);
 
             sendResponseOfClientRequest(outputStream, httpResponse);
 
@@ -37,13 +36,26 @@ public class ClientHandler {
     }
 
     private void sendResponseOfClientRequest(BufferedOutputStream outputStream, HttpResponse httpResponse) throws IOException {
+
+    /*    String responseHeaders = "";
+        responseHeaders += httpResponse.httpVersion + " " + httpResponse.statusCode + " " + httpResponse.reasonPhrase;
+        responseHeaders += "\nServer: Java HTTP Server : 1.0";
+        responseHeaders += "\nDate: " + new Date();
+        responseHeaders += "\nContent-type: " + httpResponse.httpResponseHeaderMap.get("Content-Type");
+        responseHeaders += "\nContent-length: " + httpResponse.httpResponseHeaderMap.get("Content-Length");
+        responseHeaders += "\n\n";
+        outputStream.write(responseHeaders.getBytes());*/
+
+        /*
         outputStream.write((httpResponse.httpVersion + " " + httpResponse.statusCode + " " + httpResponse.reasonPhrase).getBytes());
         outputStream.write(("\nServer: Java HTTP Server : 1.0").getBytes());
         outputStream.write((("\nDate: ") + new Date()).getBytes());
         outputStream.write(("\nContent-type: " + httpResponse.httpResponseHeaderMap.get("Content-Type")).getBytes());
         outputStream.write(("\nContent-length: " + httpResponse.httpResponseHeaderMap.get("Content-Length")).getBytes());
-        outputStream.write(("\n\n").getBytes());
-        outputStream.write(httpResponse.responseBody, 0, httpResponse.responseBodyLength);
+        outputStream.write(("\n\n").getBytes());*/
+
+        outputStream.write(httpResponse.header);
+        outputStream.write(httpResponse.body);
         outputStream.flush();
     }
 

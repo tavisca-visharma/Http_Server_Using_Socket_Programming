@@ -1,16 +1,20 @@
 package com.tavisca.workshops.HttpServer.HttpUtilities;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class HttpResponse {
+    public byte[] header = null;
 
-    public String statusCode = "200";
-    public String reasonPhrase = "OK";
-    public String httpVersion = "";
-    public byte[] responseBody = null;
-    public int responseBodyLength = 0;
+    @Override
+    public String toString() {
+        return "HttpResponse{" +
+                "header=" + new String(header) +
+                ",\n body=" + new String(body) +
+                '}';
+    }
 
-    public HashMap<String,String > httpResponseHeaderMap = new HashMap<String, String>();
+    public byte[] body = null;
 
 
     public static final String MIME_APPLICATION_ANDREW_INSET = "application/andrew-inset";

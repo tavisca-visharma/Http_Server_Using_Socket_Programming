@@ -14,9 +14,4 @@ public class FileReader {
         fileInputStream.close();
         return fileDataBuffer;
     }
-
-    public int getFileLengthOfReadFile(){
-        return this.fileLength;
-    }
-
 }
