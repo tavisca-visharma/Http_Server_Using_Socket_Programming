@@ -1,11 +1,11 @@
 pipeline {
     agent any
 	parameters{
-		string(name: 'DOCKER_USERNAME', default: "bsvishal123" ,description: "Enter Username")
+		string(name: 'DOCKER_USERNAME', defaultValue: "bsvishal123" ,description: "Enter Username")
 		password(name: 'DOCKER_PASSWORD', description: "Enter Password")
-		string(name: 'DOCKER_IMAGE_NAME', default: "http-server-api-container", description: "Enter Image Name")
-		string(name: 'DOCKER_IMAGE_TAG', default: "latest", description: "Default is latest")
-		string(name: 'PORT', default: "80", description: "Default Port is 80")
+		string(name: 'DOCKER_IMAGE_NAME', defaultValue: "http-server-api-container", description: "Enter Image Name")
+		string(name: 'DOCKER_IMAGE_TAG', defaultValue: "latest", description: "Default is latest")
+		string(name: 'PORT', defaultValue: "80", description: "Default Port is 80")
 	}
 	
     stages {
