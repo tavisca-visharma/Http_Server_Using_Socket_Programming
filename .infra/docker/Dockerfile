@@ -1,4 +1,4 @@
-FROM java:8
+FROM openjdk:12
 
 COPY build/libs /var/www/java
 
