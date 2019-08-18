@@ -2,6 +2,8 @@ FROM openjdk:12
 
 COPY build/libs /var/www/java
 
+COPY Resources /var/www/java
+
 WORKDIR /var/www/java
 
 EXPOSE 80
