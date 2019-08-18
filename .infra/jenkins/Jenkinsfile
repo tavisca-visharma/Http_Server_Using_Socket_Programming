@@ -51,7 +51,7 @@ pipeline {
                     echo "----------------------------------- Build DockerImage Step Started -----------------------------------"
 					
 					docker build -t "http-server-api-container" -f .infra/docker/Dockerfile .
-					docker run -p 80:8060 http-server-api-container
+					docker run -p 8060:80 http-server-api-container
 					
 					echo "----------------------------------- Build DockerImage Step Completed -----------------------------------"
                 ''',
