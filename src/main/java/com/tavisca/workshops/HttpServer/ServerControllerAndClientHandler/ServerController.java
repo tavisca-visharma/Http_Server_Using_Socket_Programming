@@ -14,7 +14,7 @@ public class ServerController {
     public static void main(String[] args) throws IOException {
         logsWriter = new LogsWriter(ServerController.class.getName());
         ServerSocket serverSocket = new ServerSocket(port);
-        logsWriter.writeLog("Server Started to listen at port 80");
+        logsWriter.writeLog("Server Started to listen at port " + port);
         while (true) {
             Socket clientSocket = serverSocket.accept();
             logsWriter.writeLog("\n\t\tNew Client Connected ... ");
