@@ -2,9 +2,12 @@ package com.tavisca.workshops.HttpServer.FileUtilitiesTest;
 
 import com.tavisca.workshops.HttpServer.FileUtilities.FileReader;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.File;
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class FileReaderTest {
 
@@ -82,7 +85,7 @@ public class FileReaderTest {
 
             FileReader fileReader = new FileReader();
             byte[] fileInBytes = fileReader.readFromFile(file);
-            int fileLength = fileReader.getFileLengthOfReadFile();
+            int fileLength = fileInBytes.length;
             assertEquals(testFile.getBytes().length,fileLength);
         } catch (IOException e) {
             fail();
