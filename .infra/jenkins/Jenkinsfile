@@ -5,7 +5,7 @@ pipeline {
 		password(name: 'DOCKER_PASSWORD', description: "Enter Password")
 		string(name: 'DOCKER_IMAGE_NAME', default: "http-server-api-container", description: "Enter Image Name")
 		string(name: 'DOCKER_IMAGE_TAG', default: "latest", description: "Default is latest")
-		string(name: 'PORT', default: "80", default: "Default Port is 80")
+		string(name: 'PORT', default: "80", description: "Default Port is 80")
 	}
 	
     stages {
