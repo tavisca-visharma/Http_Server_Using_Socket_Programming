@@ -42,7 +42,7 @@ pipeline {
 					
 					echo "#TODO Sonarcube Scan" 
 					
-					startsonar.bat
+					rem startsonar.bat
 					
 					gradlew sonarqube -Dsonar.projectKey=Http-Server-API-JavaProject -Dsonar.host.url=http://localhost:9000 -Dsonar.login=61c2014ac0979d3c5b5c9fd468c234e617a746e9
 					
