@@ -1,0 +1,92 @@
+pipeline {
+    agent any
+	parameters{
+		string(name: 'DOCKER_USERNAME', defaultValue: "bsvishal123" ,description: "Enter Username")
+		password(name: 'DOCKER_PASSWORD', description: "Enter Password")
+		string(name: 'DOCKER_IMAGE_NAME', defaultValue: "http-server-api-container", description: "Enter Image Name")
+		string(name: 'DOCKER_IMAGE_TAG', defaultValue: "latest", description: "Default is latest")
+		string(name: 'PORT', defaultValue: "80", description: "Default Port is 80")
+	}
+	
+    stages {
+        stage('Build') {
+            steps {
+                bat script: '''
+                    echo "----------------------------------- Build Step Started -----------------------------------"
+                    
+					gradlew build
+					
+					echo "----------------------------------- Build Step Completed -----------------------------------"
+                ''',
+            label: "Building Project"
+            }
+        }
+        stage('Test')
+        {
+            steps {
+                bat script: '''
+                    echo "----------------------------------- Tests Step Started -----------------------------------"
+                    
+					gradlew test
+					
+					echo "----------------------------------- Tests Step Completed -----------------------------------"
+                ''',
+            label: "Running Unit Test Cases"
+            }
+        }
+        stage('Static Code Analysis')
+        {
+            steps {
+                bat script: '''
+                    echo "----------------------------------- Sonarcube Step Started -----------------------------------"
+					
+					echo "#TODO Sonarcube Scan" 
+					
+					rem startsonar.bat
+					
+					gradlew sonarqube -Dsonar.projectKey=Http-Server-API-JavaProject -Dsonar.host.url=http://localhost:9000 -Dsonar.login=61c2014ac0979d3c5b5c9fd468c234e617a746e9
+					
+					echo "----------------------------------- Sonarcube Step Completed -----------------------------------"
+                ''',
+            label: "Running Sonarqube Scan"
+            }
+        }
+        stage('Build DockerImage')
+        {
+            steps {
+                bat script: '''
+                    echo "----------------------------------- Build DockerImage Step Started -----------------------------------"
+					
+					docker build -t %DOCKER_IMAGE_NAME% -f .infra/docker/Dockerfile .
+					rem docker run -p %PORT%:80 %DOCKER_IMAGE_NAME%
+					
+					echo "----------------------------------- Build DockerImage Step Completed -----------------------------------"
+                ''',
+            label: "Building Docker Image"
+            }
+        }
+        stage('Publish DockerImage')
+        {
+            steps {
+                bat script: '''
+                    echo "----------------------------------- Publishing DockerImage Step Started -----------------------------------"
+					
+					docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%
+					docker tag http-server-api-container %DOCKER_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+					docker push %DOCKER_USERNAME%/%DOCKER_IMAGE_NAME%:%DOCKER_IMAGE_TAG%
+					
+					echo "----------------------------------- Publishing DockerImage Step Completed -----------------------------------"
+                ''',
+            label: "Publishing Docker Image"
+            }
+        }
+    }
+	post{
+		always{
+			bat script: '''
+				docker logout
+			'''
+			deleteDir()
+		}
+	}
+}
