@@ -1,16 +1,20 @@
 package com.tavisca.workshops.HttpServer.HttpUtilities;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class HttpResponse {
+    public byte[] header = null;
 
-    public String statusCode = "";
-    public String reasonPhrase = "";
-    public String httpVersion = "";
-    public byte[] responseBody;
-    public int responseBodyLength;
+    @Override
+    public String toString() {
+        return "HttpResponse{" +
+                "header=" + new String(header) +
+                ",\n body=" + new String(body) +
+                '}';
+    }
 
-    public HashMap<String,String > httpResponseHeaderMap = new HashMap<String, String>();
+    public byte[] body = null;
 
 
     public static final String MIME_APPLICATION_ANDREW_INSET = "application/andrew-inset";
@@ -305,9 +309,6 @@ public class HttpResponse {
         };
     }
 
-    public static void main(String[] args) {
-        System.out.println(mimeTypeMapping.size());
-    }
 
     /**
      * Registers MIME type for provided extension. Existing extension type will be overriden.

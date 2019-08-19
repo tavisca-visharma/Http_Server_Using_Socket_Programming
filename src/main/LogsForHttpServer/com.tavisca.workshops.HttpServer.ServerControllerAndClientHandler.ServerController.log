@@ -1,0 +1,27 @@
+Aug 08, 2019 10:40:01 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: Server Started to listen at port 80
+Aug 08, 2019 10:40:07 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: 
+		New Client Connected ... 
+Aug 08, 2019 10:40:07 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: 		=========================
+Aug 08, 2019 10:40:07 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: 
+		New Client Connected ... 
+Aug 08, 2019 10:40:07 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: 		=========================
+Aug 08, 2019 10:40:36 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: 
+		New Client Connected ... 
+Aug 08, 2019 10:40:36 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: 		=========================
+Aug 08, 2019 10:40:36 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: 
+		New Client Connected ... 
+Aug 08, 2019 10:40:36 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: 		=========================
+Aug 08, 2019 10:40:36 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: 
+		New Client Connected ... 
+Aug 08, 2019 10:40:36 AM com.tavisca.workshops.HttpServer.LogsUtilities.LogsWriter writeLog
+INFO: 		=========================
